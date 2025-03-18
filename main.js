@@ -1,16 +1,16 @@
-function Candidate(name, car) {
-  this.name = name;
+function Cars(car, type) {
   this.car = car;
-  console.log(`The candidate ${name} has been registered with the car ${car}.`);
+  this.type = type;
+  console.log(`The ${car} has been registered with the type ${type}.`);
 }
-const cars = [];
-function registerCandidates(name, type, car, year, hp) {
-  Candidate.call(this, name, car);
+const carsList = [];
+
+function registerCars(car, type, year, hp) {
+  Cars.call(this, car, type);
 
   let _hp = hp;
 
   return {
-    name: name,
     car: car,
     type: type,
     year: year,
@@ -22,65 +22,57 @@ function registerCandidates(name, type, car, year, hp) {
     },
   };
 }
-function hpValidator(hp, hpMin, name) {
+function hpValidator(hp, hpMin, car) {
   function isNumber(hp) {
     return typeof hp === "number";
   }
 
   if (!isNumber(hp)) {
-    console.log(`${name}'s HP is not a number. Please enter a valid number.`);
+    console.log(
+      `${car}'s HP is not sufficient to enter the list. The minimum required is ${hpMin} HP.`
+    );
+
     return false;
   }
   if (hp < hpMin) {
-    console.log(`${name}'s HP is not enough. Minimum required is ${hpMin} HP.`);
+    console.log(
+      `${car}'s HP is not enough to enter the list. Minimum required is ${hpMin} HP.`
+    );
     return false;
   }
   return true;
 }
-function Muscle(name, car, year, hp) {
+function Muscle(car, year, hp) {
   const hpMin = 120;
-  if (hpValidator(hp, hpMin, name)) {
-    const candidate = registerCandidates.call(
-      this,
-      name,
-      "Muscle",
-      car,
-      year,
-      hp
-    );
-    cars.push(candidate);
+  if (hpValidator(hp, hpMin, car)) {
+    const addCar = registerCars.call(this, car, "Muscle", year, hp);
+    carsList.push(addCar);
   }
 }
 
-function Sport(name, car, year, hp) {
+function Sport(car, year, hp) {
   const hpMin = 400;
-  if (hpValidator(hp, hpMin, name)) {
-    const candidate = registerCandidates.call(
-      this,
-      name,
-      "Sport",
-      car,
-      year,
-      hp
-    );
-    cars.push(candidate);
+  if (hpValidator(hp, hpMin, car)) {
+    const addCar = registerCars.call(this, car, "Sport", year, hp);
+    carsList.push(addCar);
   }
 }
-function SUV(name, car, year, hp) {
+function SUV(car, year, hp) {
   const hpMin = 200;
-  if (hpValidator(hp, hpMin, name)) {
-    const candidate = registerCandidates.call(this, name, "SUV", car, year, hp);
-    cars.push(candidate);
+  if (hpValidator(hp, hpMin, car)) {
+    const addCar = registerCars.call(this, car, "SUV", year, hp);
+    carsList.push(addCar);
   }
 }
 
-const candidate1 = new Muscle("Phillip", "Vectra", 1995, 116);
-const candidate2 = new Muscle("Lorena", "Maverick", 1972, 140);
-const candidate3 = new SUV("Carlos", "Range Rover", 2020, 250);
-const candidate4 = new SUV("Sofia", "Chevrolet Tahoe", 2021, 355);
-const candidate5 = new SUV("Lucas", "BMW X5", 2023, 300);
-const candidate6 = new Sport("Ana", "Porsche 911", 2022, 450);
-const candidate7 = new Sport("Eduardo", "Ferrari 488", 2021, 670);
-const candidate8 = new Sport("Gabriela", "Lamborghini Huracán", 2021, 630);
+const car1 = new Muscle("GM Vectra", 1995, 116);
+const car2 = new Muscle("Ford Maverick", 1972, 140);
+const car3 = new Muscle("Chevrolet Opala", 1969, 350);
+const car4 = new SUV("Range Rover", 2020, 250);
+const car5 = new SUV("Chevrolet Tahoe", 2021, 355);
+const car6 = new SUV("BMW X5", 2023, 300);
+const car7 = new Sport("Porsche 911", 2022, 450);
+const car8 = new Sport("Ferrari 488", 2021, 670);
+const car9 = new Sport("Lamborghini Huracán", 2021, 630);
 
-console.log(cars);
+console.log(carsList);
